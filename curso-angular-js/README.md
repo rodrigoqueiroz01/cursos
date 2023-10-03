@@ -1,23 +1,7 @@
-# Estágio Full Stack
-
-## Informações
-- Estagiário: Rodrigo Queiroz Carvalho Sousa
-- Horário: 13h às 17h (Tarde)
-- Dias: Segunda a Sexta
-
----
-
-## Sprint
-- SUS23-746: ANGULAR JS - RODRIGO BRANAS
-
 ## Curso
 
 ### ANGULARJS - RODRIGO BRANAS (8 HORAS)
 > https://www.youtube.com/playlist?list=PLQCmSnNFVYnTD5p2fR4EXmtlR6jQJMbPb
-
-- Total horas do curso: 8 horas
-- Total horas estimativa: 20 horas
-- Total de dias: 5 dias
 
 ## Linguagens e Ferramentas
 <div style="display: inline_block"><br>
