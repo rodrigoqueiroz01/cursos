@@ -11,3 +11,6 @@
 
 #### Angular 9 (Cod3r)
 - https://www.cod3r.com.br/courses/angular-9-essencial
+
+#### Java 2022 COMPLETO: Do Zero ao Profissional + Projetos! (Udemy)
+- https://www.udemy.com/course/fundamentos-de-programacao-com-java/
