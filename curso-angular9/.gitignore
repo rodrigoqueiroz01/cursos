@@ -1,0 +1,13 @@
+# Intellij IDEA
+.idea
+
+# Backend
+backend/node_modules
+backend/package-lock.json
+
+# Frontend
+.angular
+.vscode
+frontend/node_modules
+frontend/package-lock.json
+frontend/README.md

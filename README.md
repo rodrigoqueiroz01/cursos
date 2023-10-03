@@ -8,3 +8,9 @@
 
 #### Angular JS (Rodrigo Branas)
 - https://loiane.training/curso/java-intermediario
+
+#### Angular 9 (Cod3r)
+- https://www.cod3r.com.br/courses/angular-9-essencial
+
+####  ()
+- https://www.cod3r.com.br/courses/angular-9-essencial
