@@ -5,3 +5,6 @@
 
 #### Java Intermediário (Loiane Training)
 - https://loiane.training/curso/java-intermediario
+
+#### Angular JS (Rodrigo Branas)
+- https://loiane.training/curso/java-intermediario

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="listaTelefonica">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Telefonica</title>
+    <link rel="stylesheet" type="text/css" href="../../../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../../../lib/angular/angular.js"></script>
+    <script src="ListaTelefonica.js"></script>
+</head>
+<body ng-controller="listaTelefonicaCtrl">
+<div class="jumbotron">
+    <h3>{{app}}</h3>
+    <table ng-show="contatos.length > 0" class="table">
+        <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Telefone</th>
+            <th>Operadora</th>
+        </tr>
+        <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos">
+            <td><input type="checkbox" ng-model="contato.selecionado"></td>
+            <td>{{contato.nome}}</td>
+            <td>{{contato.sobrenome}}</td>
+            <td>{{contato.telefone}}</td>
+            <td>{{contato.operadora.nome}}</td>
+            <td>
+                <div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div>
+            </td>
+        </tr>
+    </table>
+    </hr>
+    <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
+    <input class="form-control" type="text" ng-model="contato.sobrenome" placeholder="Sobrenome"/>
+    <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+    <select class="form-control" ng-model="contato.operadora"
+            ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+        <option value="">Selecione uma operadora</option>
+    </select>
+    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)"
+            ng-disabled="!contato.nome || !contato.sobrenome || !contato.telefone">Adicionar contato
+    </button>
+    <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)"
+            ng-show="isContatoSelecionado(contatos)">Apagar contatos
+    </button>
+</div>
+<div ng-include="'footer.html'"></div>
+</body>
+</html>
