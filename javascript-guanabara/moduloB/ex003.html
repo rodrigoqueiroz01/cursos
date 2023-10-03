@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meu primeiro programa...</title>
+    <style>
+        body {
+            background-color: rgb(111, 111, 202);
+            color: white;
+            font: normal 20pt Arial;
+        }
+        h1 {
+            color: rgb(255, 208, 0);
+        }
+    </style>
+</head>
+<body>
+    <h1>Olá, mundo!</h1>
+    <p>já me livrei da maldição...</p>
+    <script>
+        var n1 = Number.parseFloat(window.prompt('Digite o primeiro número: '))
+        var n2 = Number.parseFloat(window.prompt('Digite o segundo número: '))
+
+        var soma = n1 + n2
+        var subtracao = n1 - n2
+        var multiplicacao = n1 * n2
+        var divisao = n1 / n2
+        var media = (n1 + n2) / 2
+        var s = n1 + n2
+
+        window.alert('A soma dos valores é: ' + soma)
+        window.alert('A subtracao dos valores é: ' + subtracao)
+        window.alert('A multiplicacao dos valores é: ' + multiplicacao)
+        window.alert('A divisao dos valores é: ' + divisao)
+        window.alert('A média dos valores é: ' + media)
+
+        window.alert('A soma dos valores é: ' + String(s))
+        window.alert('A soma dos valores é: ' + s.toString()) // Concatenação
+        window.alert(`A soma entre ${n1} e ${n2} é igual a ${s}`) // Template string
+
+        // (number + number) para adição
+        // (string + string) para concatenação
+    </script>
+</body>
+</html>

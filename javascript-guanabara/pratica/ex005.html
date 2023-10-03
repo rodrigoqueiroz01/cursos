@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <style>
+        body {
+            background: rgb(220, 255, 255);
+            color: blue;
+            font: normal 20pt Social Logos;
+        }
+
+        div#clique {
+            background: rgb(220, 255, 255);
+            color: blue;
+            font: normal 20pt Social Logos;
+        }
+    </style>
+</head>
+<body>
+    <h1>Facebook</h1>
+    <p>Seja bem vindo ao Facebook!</p>
+    <p>Empresa <strong>META</strong></p>
+    <div class="clique">Para ser direcionado ao seu perfil,</div>
+    <div id="clique"><strong>clique aqui</strong></div>
+
+    <script>
+        var clique = document.getElementById('clique')
+        clique.addEventListener('mouseenter', entrar)
+        clique.addEventListener('mouseout', sair)
+
+        function entrar() {
+            clique.style.color = 'black'
+        }
+
+        function sair() {
+            clique.style.color = 'blue'
+        }
+
+        var d = window.document.querySelector('div.clique')
+        d.style.color = 'blue'
+    </script>
+</body>
+</html>

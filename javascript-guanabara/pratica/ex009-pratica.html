@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nacionalidade</title>
+</head>
+<body>
+    <h1>Sistema de Nacionalidade</h1>
+    <h3>Identifique se você é Brasileiro(a) ou não.</h3>
+    
+    Digite sua nacionalidade: <input type="text" name="txtnacionalidade" id="txtnacionalidade">
+    <input type="button" value="Consultar" onclick="consultar()">
+
+    <div id="resultado"></div>
+
+    <script>
+        function consultar() {
+            var txtnac = window.document.querySelector('input#txtnacionalidade')
+            var resultado = document.querySelector('div#resultado')
+            var nomePais = String(txtnac.nodeValue)
+            
+            resultado.innerHTML = `Seu país é ${txtnac}`
+        }
+    </script>
+</body>
+</html>
