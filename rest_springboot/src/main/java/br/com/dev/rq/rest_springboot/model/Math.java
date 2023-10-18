@@ -11,7 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Math {
 
-    private String number;
+    private String numberOne;
+    private String numberTwo;
 
 }
 

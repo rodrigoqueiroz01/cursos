@@ -1,6 +1,5 @@
 package br.com.dev.rq.rest_springboot.controller;
 
-import br.com.dev.rq.rest_springboot.exception.UnsupportedMathOperationException;
 import br.com.dev.rq.rest_springboot.service.MathService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +15,30 @@ public class MathController {
     @GetMapping("/sum/{numberOne}/{numberTwo}")
     public Double sum(@PathVariable(value = "numberOne") String numberOne,
                       @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
-        if (!mathService.isNumeric(numberOne) || !mathService.isNumeric(numberTwo)) throw new UnsupportedMathOperationException("Please set a numeric value!");
-        return mathService.convertToDouble(numberOne) + mathService.convertToDouble(numberTwo);
+        return mathService.sum(numberOne, numberTwo);
+    }
+
+    @GetMapping("/subtraction/{numberOne}/{numberTwo}")
+    public Double subtraction(@PathVariable(value = "numberOne") String numberOne,
+                              @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        return mathService.subtraction(numberOne, numberTwo);
+    }
+
+    @GetMapping("/multiplication/{numberOne}/{numberTwo}")
+    public Double multiplication(@PathVariable(value = "numberOne") String numberOne,
+                           @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        return mathService.multiplication(numberOne, numberTwo);
+    }
+
+    @GetMapping("/division/{numberOne}/{numberTwo}")
+    public Double division(@PathVariable(value = "numberOne") String numberOne,
+                           @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        return mathService.division(numberOne, numberTwo);
+    }
+
+    @GetMapping("/squareRoot/{number}")
+    public Double squareRoot(@PathVariable(value = "number") String number) throws Exception {
+        return mathService.squareRoot(number);
     }
 
 }
