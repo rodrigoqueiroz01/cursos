@@ -18,7 +18,7 @@ public class PersonService {
     private final AtomicLong counter = new AtomicLong();
 
     public List<Person> findAll() {
-        log.info("Finding all persons!");
+        log.info("Buscando todas as pessoas!");
 
         List<Person> persons = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class PersonService {
     }
 
     public Person findById(String id) {
-        log.info("Finding one person!");
+        log.info("Buscando uma pessoa pelo ID!");
 
         var person = Person.builder()
                 .id(counter.incrementAndGet())
@@ -41,6 +41,23 @@ public class PersonService {
                 .gender("Male")
                 .build();
 
+        return person;
+    }
+
+    public Person create(Person person) {
+        log.info("Criando uma pessoa!");
+        return person;
+    }
+
+    public Person update(Person person) {
+        log.info("Atualizando uma pessoa!");
+        return person;
+    }
+
+    public Person delete(Long id) {
+        log.info("Deletando uma pessoa pelo ID!");
+        var person = new Person();
+        person.setId(id);
         return person;
     }
 
