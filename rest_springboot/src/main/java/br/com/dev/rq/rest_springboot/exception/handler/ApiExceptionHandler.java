@@ -1,5 +1,6 @@
 package br.com.dev.rq.rest_springboot.exception.handler;
 
+import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import br.com.dev.rq.rest_springboot.exception.UnsupportedMathOperationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,23 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var apiError = ApiError.builder()
                 .status(status.value())
                 .title("Requisição inválida!")
+                .type(request.getDescription(false))
+                .detail(ex.getMessage())
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public final ResponseEntity<Object> handleEntityNotFoundExceptions(Exception ex, WebRequest request) {
+        var status = HttpStatus.NOT_FOUND;
+
+        var apiError = ApiError.builder()
+                .status(status.value())
+                .title("Entidade não encontrada.")
                 .type(request.getDescription(false))
                 .detail(ex.getMessage())
                 .build();
