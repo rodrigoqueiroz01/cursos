@@ -1,3 +1,19 @@
 spring:
-  config:
-    import: /src/main/resources/application-secrets.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/startup
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+    hibernate:
+      ddl-auto: none
+
+  flyway:
+    locations: classpath:db/migration
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0

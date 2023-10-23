@@ -38,4 +38,4 @@ mvnw
 mvnw.cmd
 
 ### Others ###
-/src/main/resources/application-secrets.yml
+/src/main/resources/application-secrets.properties

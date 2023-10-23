@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "person")
+@Table(name = "person", schema = "startup")
 public class Person implements Serializable {
 
     @Serial
@@ -24,19 +24,19 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
 
-    @Column(name = "document", nullable = false, unique = true)
+    @Column(name = "document", nullable = false, unique = true, length = 14)
     private String document;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, length = 100)
     private String address;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender", nullable = false, length = 8)
     private String gender;
 
 }
