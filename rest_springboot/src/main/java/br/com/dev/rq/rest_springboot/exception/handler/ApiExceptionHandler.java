@@ -1,7 +1,10 @@
 package br.com.dev.rq.rest_springboot.exception.handler;
 
+import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import br.com.dev.rq.rest_springboot.exception.UnsupportedMathOperationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,16 +16,58 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final String MSG_ERRO_GENERICO = "Ocorreu um erro inesperado no sistema. " +
+            "Tente novamente e, se o problema persistir, entre em contato com o administrador.";
+
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ApiError> handleAllExceptions(Exception ex, WebRequest request) {
-        var apiError = new ApiError(ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+        var status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        var apiError = ApiError.builder()
+                .status(status.value())
+                .title(MSG_ERRO_GENERICO)
+                .detail(ex.getMessage())
+                .type(request.getDescription(false))
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
     @ExceptionHandler(UnsupportedMathOperationException.class)
-    public final ResponseEntity<ApiError> handleBadRequestExceptions(Exception ex, WebRequest request) {
-        var apiError = new ApiError(ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    public final ResponseEntity<Object> handleBadRequestExceptions(Exception ex, WebRequest request) {
+        var status = HttpStatus.BAD_REQUEST;
+
+        var apiError = ApiError.builder()
+                .status(status.value())
+                .title("Requisição inválida!")
+                .type(request.getDescription(false))
+                .detail(ex.getMessage())
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public final ResponseEntity<Object> handleEntityNotFoundExceptions(Exception ex, WebRequest request) {
+        var status = HttpStatus.NOT_FOUND;
+
+        var apiError = ApiError.builder()
+                .status(status.value())
+                .title("Entidade não encontrada.")
+                .type(request.getDescription(false))
+                .detail(ex.getMessage())
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
     }
 
 }
