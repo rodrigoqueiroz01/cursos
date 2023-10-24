@@ -19,6 +19,9 @@
 	<properties>
 		<!-- Java Version -->
 		<java.version>19</java.version>
+
+		<!-- Dozer Mapper -->
+		<dozer.version>6.5.2</dozer.version>
 	</properties>
 
 	<dependencies>
@@ -55,12 +58,21 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
 
 		<!-- Others -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.github.dozermapper</groupId>
+			<artifactId>dozer-core</artifactId>
+			<version>${dozer.version}</version>
 		</dependency>
 	</dependencies>
 

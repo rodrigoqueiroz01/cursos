@@ -1,44 +1,46 @@
 package br.com.dev.rq.rest_springboot.service;
 
+import br.com.dev.rq.rest_springboot.data.mapper.DozerMapper;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
-import br.com.dev.rq.rest_springboot.model.Person;
+import br.com.dev.rq.rest_springboot.data.model.Person;
+import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
 import br.com.dev.rq.rest_springboot.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Log
 @Service
 @AllArgsConstructor
 public class PersonService {
 
-    private final AtomicLong counter = new AtomicLong();
-
     private final PersonRepository repository;
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         log.info("Buscando todas as pessoas!");
-        return repository.findAll();
+        var person = repository.findAll();
+        return DozerMapper.parseListObjects(person, PersonVO.class);
     }
 
-    public Person findById(Long id) {
+    public PersonVO findById(Long id) {
         log.info("Buscando uma pessoa pelo ID!");
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("ID não encontrado. Informe um ID correto!"));
+        var person = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("ID não encontrado. Informe um ID correto!"));
+        return DozerMapper.parseObject(person, PersonVO.class);
     }
 
-    public Person save(Person person) {
+    public PersonVO save(PersonVO vo) {
         log.info("Criando uma pessoa!");
-        return repository.save(person);
+        var person = DozerMapper.parseObject(vo, Person.class);
+        return DozerMapper.parseObject(repository.save(person), PersonVO.class);
     }
 
-    public Person update(Person person, Long id) {
+    public PersonVO update(PersonVO vo, Long id) {
         log.info("Atualizando uma pessoa!");
         findById(id);
-        person.setId(id);
-        return save(person);
+        vo.setId(id);
+        return DozerMapper.parseObject(save(vo), PersonVO.class);
     }
 
     public void delete(Long id) {

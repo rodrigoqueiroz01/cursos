@@ -1,4 +1,4 @@
-package br.com.dev.rq.rest_springboot.model;
+package br.com.dev.rq.rest_springboot.data.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
