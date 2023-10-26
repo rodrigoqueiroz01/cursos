@@ -1,4 +1,4 @@
-package br.com.dev.rq.rest_springboot.data.vo;
+package br.com.dev.rq.rest_springboot.data.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonVO implements Serializable {
+//@JsonPropertyOrder({"address", "document", "firstName", "lastName", "gender"})
+public class PersonDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -20,8 +21,8 @@ public class PersonVO implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-    private String document;
     private String address;
+    private String document;
     private String gender;
 
 }

@@ -1,30 +1,34 @@
 package br.com.dev.rq.rest_springboot.data.mapper;
 
+import br.com.dev.rq.rest_springboot.data.dto.PersonDTO;
 import br.com.dev.rq.rest_springboot.data.model.Person;
-import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-@Service
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
+
+@Component
+@AllArgsConstructor
 public class PersonMapper {
 
-    public PersonVO convertEntityToVo(Person person) {
-        return PersonVO.builder()
-                .id(person.getId())
-                .firstName(person.getFirstName())
-                .lastName(person.getLastName())
-                .address(person.getAddress())
-                .gender(person.getGender())
-                .build();
+    public static Person toPerson(PersonDTO personDTO) {
+        var mapper = new ModelMapper();
+        return mapper.map(personDTO, Person.class);
     }
 
-    public Person convertVoToEntity(PersonVO vo) {
-        return Person.builder()
-                .id(vo.getId())
-                .firstName(vo.getFirstName())
-                .lastName(vo.getLastName())
-                .address(vo.getAddress())
-                .gender(vo.getGender())
-                .build();
+    public static PersonDTO toPersonDto(Person person) {
+        var mapper = new ModelMapper();
+        return mapper.map(person, PersonDTO.class);
+    }
+
+    public static List<PersonDTO> toPersonDTOList (List<Person> personList) {
+        if (isNull(personList) || personList.isEmpty()) return new ArrayList<>();
+        return personList.stream().map(PersonMapper::toPersonDto).collect(Collectors.toList());
     }
 
 }
