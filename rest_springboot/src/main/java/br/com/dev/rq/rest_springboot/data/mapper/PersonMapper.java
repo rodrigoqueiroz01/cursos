@@ -2,7 +2,6 @@ package br.com.dev.rq.rest_springboot.data.mapper;
 
 import br.com.dev.rq.rest_springboot.data.dto.PersonDTO;
 import br.com.dev.rq.rest_springboot.data.model.Person;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,6 @@ import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
 
 @Component
-@AllArgsConstructor
 public class PersonMapper {
 
     public static Person toPerson(PersonDTO personDTO) {
