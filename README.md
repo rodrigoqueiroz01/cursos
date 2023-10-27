@@ -6,6 +6,9 @@
 #### Java 2022 COMPLETO: Do Zero ao Profissional + Projetos! (Udemy)
 - https://www.udemy.com/course/fundamentos-de-programacao-com-java/
 
+#### REST API's RESTFul do 0 à AWS c. Spring Boot 3 Java e Docker
+- https://www.udemy.com/course/restful-apis-do-0-a-nuvem-com-springboot-e-docker/
+
 #### JavaScript (Gustavo Guanabara)
 - https://www.cursoemvideo.com/curso/javascript/
 
@@ -17,5 +20,3 @@
 
 #### Angular 9 (Cod3r)
 - https://www.cod3r.com.br/courses/angular-9-essencial
-
-
