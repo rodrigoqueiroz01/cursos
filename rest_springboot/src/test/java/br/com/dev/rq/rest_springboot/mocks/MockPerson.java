@@ -1,7 +1,7 @@
 package br.com.dev.rq.rest_springboot.mocks;
 
 import br.com.dev.rq.rest_springboot.data.model.Person;
-import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
+import br.com.dev.rq.rest_springboot.data.dto.PersonDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class MockPerson {
         return mockEntity(0);
     }
 
-    public PersonVO mockVO() {
+    public PersonDTO mockVO() {
         return mockVO(0);
     }
 
@@ -26,8 +26,8 @@ public class MockPerson {
         return persons;
     }
 
-    public List<PersonVO> mockVOList() {
-        List<PersonVO> persons = new ArrayList<>();
+    public List<PersonDTO> mockVOList() {
+        List<PersonDTO> persons = new ArrayList<>();
 
         for (int i = 0; i < 14; i++) {
             persons.add(mockVO(i));
@@ -46,8 +46,8 @@ public class MockPerson {
                 .build();
     }
 
-    private PersonVO mockVO(Integer number) {
-        return PersonVO.builder()
+    private PersonDTO mockVO(Integer number) {
+        return PersonDTO.builder()
                 .id(number.longValue())
                 .firstName("First Name Test" + number)
                 .lastName("Last Name Test" + number)

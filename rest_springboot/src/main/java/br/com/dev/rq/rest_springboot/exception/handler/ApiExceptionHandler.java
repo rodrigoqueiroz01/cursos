@@ -1,5 +1,6 @@
 package br.com.dev.rq.rest_springboot.exception.handler;
 
+import br.com.dev.rq.rest_springboot.exception.DataAlreadyExistsException;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,24 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError.builder()
                 .status(status.value())
-                .title("Entidade não encontrada.")
+                .title("Dados não encontrado.")
+                .type(request.getDescription(false))
+                .detail(ex.getMessage())
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(DataAlreadyExistsException.class)
+    public final ResponseEntity<Object> handleDataAlreadyExistsExceptions(Exception ex, WebRequest request) {
+        var status = HttpStatus.BAD_REQUEST;
+
+        var apiError = ApiError.builder()
+                .status(status.value())
+                .title("Os dados já existem.")
                 .type(request.getDescription(false))
                 .detail(ex.getMessage())
                 .build();
