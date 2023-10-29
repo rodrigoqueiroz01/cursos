@@ -1,6 +1,6 @@
 package br.com.dev.rq.rest_springboot.data.mapper;
 
-import br.com.dev.rq.rest_springboot.data.dto.PersonDTO;
+import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
 import br.com.dev.rq.rest_springboot.data.model.Person;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -14,19 +14,19 @@ import static java.util.Objects.isNull;
 @Component
 public class PersonMapper {
 
-    public static Person toPerson(PersonDTO personDTO) {
+    public static Person toPerson(PersonVO personVO) {
         var mapper = new ModelMapper();
-        return mapper.map(personDTO, Person.class);
+        return mapper.map(personVO, Person.class);
     }
 
-    public static PersonDTO toPersonDto(Person person) {
+    public static PersonVO toPersonVO(Person person) {
         var mapper = new ModelMapper();
-        return mapper.map(person, PersonDTO.class);
+        return mapper.map(person, PersonVO.class);
     }
 
-    public static List<PersonDTO> toPersonDTOList (List<Person> personList) {
+    public static List<PersonVO> toPersonVOList(List<Person> personList) {
         if (isNull(personList) || personList.isEmpty()) return new ArrayList<>();
-        return personList.stream().map(PersonMapper::toPersonDto).collect(Collectors.toList());
+        return personList.stream().map(PersonMapper::toPersonVO).collect(Collectors.toList());
     }
 
 }

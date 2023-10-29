@@ -1,57 +1,63 @@
 package br.com.dev.rq.rest_springboot.service;
 
-//import br.com.dev.rq.rest_springboot.data.mapper.DozerMapper;
-
-import br.com.dev.rq.rest_springboot.data.model.Person;
-import br.com.dev.rq.rest_springboot.data.dto.PersonDTO;
+import br.com.dev.rq.rest_springboot.controller.PersonController;
+import br.com.dev.rq.rest_springboot.data.mapper.PersonMapper;
+import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
 import br.com.dev.rq.rest_springboot.exception.DataAlreadyExistsException;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import br.com.dev.rq.rest_springboot.repository.PersonRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
-@Log
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Service
 @AllArgsConstructor
 public class PersonService {
 
     private final PersonRepository repository;
 
-    public List<Person> findAll() {
-        log.info("Buscando todas as pessoas!");
-        return repository.findAll();
+    public List<PersonVO> findAll() {
+        var persons = PersonMapper.toPersonVOList(repository.findAll());
+        persons.forEach(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel()));
+        return persons;
     }
 
-    public Person findById(Long id) {
-        log.info("Buscando uma pessoa pelo ID!");
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Código não encontrado."));
+    public PersonVO findById(Long id) {
+        var vo = PersonMapper.toPersonVO(repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Código não encontrado.")));
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+
+        return vo;
     }
 
-    public Person save(Person person) {
-        log.info("Criando uma pessoa!");
-
-        if (Objects.nonNull(repository.findByDocument(person.getDocument()))) {
+    public PersonVO save(PersonVO personVO) {
+        if (Objects.nonNull(repository.findByDocument(personVO.getDocument()))) {
             throw new DataAlreadyExistsException("CPF já cadastrado.");
         }
 
-        return repository.save(person);
+        var entity = PersonMapper.toPerson(personVO);
+        var vo = PersonMapper.toPersonVO(repository.save(entity));
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel());
+
+        return vo;
     }
 
-    public Person update(Person person, Long id) {
-        log.info("Atualizando uma pessoa!");
-        findById(id);
-        person.setId(id);
-        return repository.save(person);
+    public PersonVO update(PersonVO personVO, Long id) {
+        var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Código não encontrado."));
+
+        var vo = PersonMapper.toPersonVO(repository.save(entity));
+        vo.add(linkTo(methodOn(PersonController.class).findById(personVO.getPersonId())).withSelfRel());
+
+        return vo;
     }
 
     public void delete(Long id) {
-        log.info("Deletando uma pessoa pelo ID!");
         var person = findById(id);
-        repository.deleteById(person.getId());
+        repository.deleteById(person.getPersonId());
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.dev.rq.rest_springboot.controller;
 
-import br.com.dev.rq.rest_springboot.data.dto.PersonDTO;
+import br.com.dev.rq.rest_springboot.data.model.Person;
+import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
 import br.com.dev.rq.rest_springboot.data.mapper.PersonMapper;
 import br.com.dev.rq.rest_springboot.service.PersonService;
 import br.com.dev.rq.rest_springboot.util.MediaType;
@@ -18,30 +19,26 @@ public class PersonController {
 
     private final PersonService service;
 
-    private final PersonMapper mapper;
-
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    public ResponseEntity<List<PersonDTO>> findAll() {
-        return ResponseEntity.ok(PersonMapper.toPersonDTOList(service.findAll()));
+    public ResponseEntity<List<PersonVO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    public ResponseEntity<PersonDTO> findById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok(PersonMapper.toPersonDto(service.findById(id)));
+    public ResponseEntity<PersonVO> findById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok((service.findById(id)));
     }
 
-    @PostMapping(
-            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+    @PostMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    public ResponseEntity<PersonDTO> save(@RequestBody PersonDTO personDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(PersonMapper.toPersonDto(service.save(PersonMapper.toPerson(personDTO))));
+    public ResponseEntity<PersonVO> save(@RequestBody PersonVO personVO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(personVO));
     }
 
-    @PutMapping(value = "/{id}",
-            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+    @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    public ResponseEntity<PersonDTO> update(@RequestBody final PersonDTO personDTO, @PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok(PersonMapper.toPersonDto(service.update(PersonMapper.toPerson(personDTO), id)));
+    public ResponseEntity<PersonVO> update(@RequestBody final PersonVO personVO, @PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(service.update(personVO, id));
     }
 
     @DeleteMapping(value = "/{id}")
