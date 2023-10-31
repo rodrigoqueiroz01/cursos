@@ -12,7 +12,3 @@ CREATE TABLE person
 
 ALTER TABLE person
     OWNER TO postgres;
-
--- Sempre vai gerar esse insert para teste.
-INSERT INTO person (first_name, last_name, document, address, gender)
-VALUES ('Rodrigo', 'Queiroz', '52968130064', 'Brasil', 'Male');

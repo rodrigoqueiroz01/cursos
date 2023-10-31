@@ -37,7 +37,7 @@ public class PersonController implements IPersonController {
         return ResponseEntity.ok(service.update(personVO, id));
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public Object delete(@PathVariable(value = "id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent();

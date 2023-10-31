@@ -29,7 +29,7 @@ public class PersonService {
     }
 
     public PersonVO findById(Long id) {
-        var vo = PersonMapper.toPersonVO(repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Código não encontrado.")));
+        var vo = PersonMapper.toPersonVO(repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada")));
         vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 
         return vo;
@@ -50,7 +50,7 @@ public class PersonService {
     }
 
     public PersonVO update(PersonVO personVO, Long id) {
-        var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Código não encontrado."));
+        var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
 
         var vo = PersonMapper.toPersonVO(repository.save(entity));
         vo.add(linkTo(methodOn(PersonController.class).findById(personVO.getId())).withSelfRel());
