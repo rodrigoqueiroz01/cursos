@@ -1,8 +1,6 @@
 package br.com.dev.rq.rest_springboot.controller;
 
-import br.com.dev.rq.rest_springboot.data.model.Person;
 import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
-import br.com.dev.rq.rest_springboot.data.mapper.PersonMapper;
 import br.com.dev.rq.rest_springboot.service.PersonService;
 import br.com.dev.rq.rest_springboot.util.MediaType;
 import lombok.AllArgsConstructor;

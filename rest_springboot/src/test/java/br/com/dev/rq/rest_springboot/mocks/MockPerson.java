@@ -48,7 +48,7 @@ public class MockPerson {
 
     private PersonVO mockVO(Integer number) {
         return PersonVO.builder()
-                .personId(number.longValue())
+                .id(number.longValue())
                 .firstName("First Name Test" + number)
                 .lastName("Last Name Test" + number)
                 .address("Addres Test" + number)

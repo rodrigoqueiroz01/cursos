@@ -5,6 +5,7 @@ import br.com.dev.rq.rest_springboot.data.mapper.PersonMapper;
 import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
 import br.com.dev.rq.rest_springboot.exception.DataAlreadyExistsException;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
+import br.com.dev.rq.rest_springboot.exception.RequiredObjectIsNullException;
 import br.com.dev.rq.rest_springboot.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class PersonService {
 
     public List<PersonVO> findAll() {
         var persons = PersonMapper.toPersonVOList(repository.findAll());
-        persons.forEach(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel()));
+        persons.forEach(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel()));
         return persons;
     }
 
@@ -35,13 +36,15 @@ public class PersonService {
     }
 
     public PersonVO save(PersonVO personVO) {
+        if (Objects.isNull(personVO)) throw new RequiredObjectIsNullException();
+
         if (Objects.nonNull(repository.findByDocument(personVO.getDocument()))) {
             throw new DataAlreadyExistsException("CPF já cadastrado.");
         }
 
         var entity = PersonMapper.toPerson(personVO);
         var vo = PersonMapper.toPersonVO(repository.save(entity));
-        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel());
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel());
 
         return vo;
     }
@@ -50,14 +53,14 @@ public class PersonService {
         var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Código não encontrado."));
 
         var vo = PersonMapper.toPersonVO(repository.save(entity));
-        vo.add(linkTo(methodOn(PersonController.class).findById(personVO.getPersonId())).withSelfRel());
+        vo.add(linkTo(methodOn(PersonController.class).findById(personVO.getId())).withSelfRel());
 
         return vo;
     }
 
     public void delete(Long id) {
         var person = findById(id);
-        repository.deleteById(person.getPersonId());
+        repository.deleteById(person.getId());
     }
 
 }
