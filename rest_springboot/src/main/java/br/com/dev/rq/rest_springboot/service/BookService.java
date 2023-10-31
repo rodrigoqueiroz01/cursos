@@ -2,7 +2,6 @@ package br.com.dev.rq.rest_springboot.service;
 
 import br.com.dev.rq.rest_springboot.controller.BookController;
 import br.com.dev.rq.rest_springboot.data.mapper.BookMapper;
-import br.com.dev.rq.rest_springboot.data.model.Book;
 import br.com.dev.rq.rest_springboot.data.vo.BookVO;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import br.com.dev.rq.rest_springboot.exception.RequiredObjectIsNullException;
