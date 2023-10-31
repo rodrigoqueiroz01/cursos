@@ -20,7 +20,6 @@ import java.util.List;
 @Tag(name = "People", description = "Endpoints for Managing People")
 public interface IPersonController {
 
-
     @Operation(summary = "Finds all People", description = "Finds all People",
             tags = {"People"},
             responses = {
