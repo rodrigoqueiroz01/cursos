@@ -7,6 +7,7 @@ import br.com.dev.rq.rest_springboot.exception.DataAlreadyExistsException;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import br.com.dev.rq.rest_springboot.exception.RequiredObjectIsNullException;
 import br.com.dev.rq.rest_springboot.repository.PersonRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,15 @@ public class PersonService {
         var vo = PersonMapper.toPersonVO(repository.save(entity));
         vo.add(linkTo(methodOn(PersonController.class).findById(personVO.getId())).withSelfRel());
 
+        return vo;
+    }
+
+    @Transactional
+    public PersonVO disablePerson(Long id) {
+        repository.disablePerson(id);
+        var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
+        var vo = PersonMapper.toPersonVO(entity);
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return vo;
     }
 

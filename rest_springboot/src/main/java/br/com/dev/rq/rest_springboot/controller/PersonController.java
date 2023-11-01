@@ -24,7 +24,7 @@ public class PersonController implements IPersonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonVO> findById(@PathVariable(value = "id") Long id) {
-        return ResponseEntity.ok((service.findById(id)));
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping
@@ -35,6 +35,11 @@ public class PersonController implements IPersonController {
     @PutMapping("/{id}")
     public ResponseEntity<PersonVO> update(@RequestBody final PersonVO personVO, @PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.update(personVO, id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PersonVO> disablePerson(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(service.disablePerson(id));
     }
 
     @DeleteMapping("/{id}")

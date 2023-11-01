@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@JsonPropertyOrder({"id", "firstName", "lastName", "address", "document", "gender"})
+@JsonPropertyOrder({"id", "firstName", "lastName", "address", "document", "gender", "enabled"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
     @Serial
@@ -36,5 +36,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 
     @JsonProperty("genero")
     private String gender;
+
+    @JsonProperty("habilitado")
+    private Boolean enabled;
 
 }
