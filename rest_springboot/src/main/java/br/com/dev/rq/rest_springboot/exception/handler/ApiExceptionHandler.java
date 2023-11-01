@@ -2,6 +2,7 @@ package br.com.dev.rq.rest_springboot.exception.handler;
 
 import br.com.dev.rq.rest_springboot.exception.DataAlreadyExistsException;
 import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
+import br.com.dev.rq.rest_springboot.exception.RequiredObjectIsNullException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,7 +43,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError.builder()
                 .status(status.value())
-                .title("Dados não encontrado.")
+                .title("Dado não encontrado")
                 .type(request.getDescription(false))
                 .detail(ex.getMessage())
                 .build();
@@ -59,7 +60,24 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var apiError = ApiError.builder()
                 .status(status.value())
-                .title("Os dados já existem.")
+                .title("Os dados já existem")
+                .type(request.getDescription(false))
+                .detail(ex.getMessage())
+                .build();
+
+        var headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PROBLEM_JSON);
+
+        return super.handleExceptionInternal(ex, apiError, headers, status, request);
+    }
+
+    @ExceptionHandler(RequiredObjectIsNullException.class)
+    public final ResponseEntity<Object> handleRequiredObjectIsNullExceptions(Exception ex, WebRequest request) {
+        var status = HttpStatus.BAD_REQUEST;
+
+        var apiError = ApiError.builder()
+                .status(status.value())
+                .title("Objeto nulo identificado")
                 .type(request.getDescription(false))
                 .detail(ex.getMessage())
                 .build();
