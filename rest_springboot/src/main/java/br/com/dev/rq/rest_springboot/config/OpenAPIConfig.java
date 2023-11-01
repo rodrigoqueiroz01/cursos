@@ -11,7 +11,7 @@ public class OpenAPIConfig {
 
     // url: http://localhost:8080/swagger-ui/index.html#/
     @Bean
-    public OpenAPI customOpenAPI() {
+    OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
                         .title("Startup")
