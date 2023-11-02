@@ -37,6 +37,13 @@ public class PersonService {
         return assembler.toModel(personVosPage, link);
     }
 
+    public PagedModel<EntityModel<PersonVO>> findPersonsByName(String firstName, Pageable pageable) {
+        var personVosPage = repository.findPersonsByName(firstName, pageable).map(PersonMapper::toPersonVO);
+        personVosPage.map(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel()));
+        var link = linkTo(methodOn(PersonController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+        return assembler.toModel(personVosPage, link);
+    }
+
     public PersonVO findById(Long id) {
         var vo = PersonMapper.toPersonVO(repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada")));
         vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());

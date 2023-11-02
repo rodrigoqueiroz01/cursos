@@ -34,6 +34,13 @@ public class BookService {
         return assembler.toModel(booksVosPage, link);
     }
 
+    public PagedModel<EntityModel<BookVO>> findBooksByTitle(String title, Pageable pageable) {
+        var booksVosPage = repository.findBooksByTitle(title, pageable).map(BookMapper::toBookVO);
+        booksVosPage.map(vo -> vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel()));
+        var link = linkTo(methodOn(BookController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+        return assembler.toModel(booksVosPage, link);
+    }
+
     public BookVO findById(Long id) {
         var vo = BookMapper.toBookVO(repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Livro não encontrado")));
         vo.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());

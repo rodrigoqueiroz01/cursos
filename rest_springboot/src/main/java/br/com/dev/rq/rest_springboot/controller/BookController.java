@@ -27,6 +27,16 @@ public class BookController implements IBookController {
         return ResponseEntity.ok(service.findAll(PageRequest.of(pageNumber, pageSize, sortDirection)));
     }
 
+    @GetMapping("/findBookByTitle/{title}")
+    public ResponseEntity<PagedModel<EntityModel<BookVO>>> findBooksByTitle(@PathVariable("title") String title,
+                                                                            @RequestParam(value = "page", defaultValue = "0") Integer pageNumber,
+                                                                            @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+                                                                            @RequestParam(value = "sort", defaultValue = "asc") String sort) {
+        var sortDirection = Sort.by("desc".equalsIgnoreCase(sort) ? Sort.Direction.DESC : Sort.Direction.ASC, "id");
+        var pageable = PageRequest.of(pageNumber, pageSize, sortDirection);
+        return ResponseEntity.ok(service.findBooksByTitle(title, pageable));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<BookVO> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.findById(id));

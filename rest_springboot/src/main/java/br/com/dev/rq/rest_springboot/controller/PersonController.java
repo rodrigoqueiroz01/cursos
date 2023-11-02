@@ -27,6 +27,16 @@ public class PersonController implements IPersonController {
         return ResponseEntity.ok(service.findAll(PageRequest.of(pageNumber, pageSize, sortDirection)));
     }
 
+    @GetMapping("/findPersonByName/{firstName}")
+    public ResponseEntity<PagedModel<EntityModel<PersonVO>>> findPersonsByName(@PathVariable("firstName") String firstName,
+                                                                               @RequestParam(value = "page", defaultValue = "0") Integer pageNumber,
+                                                                               @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+                                                                               @RequestParam(value = "sort", defaultValue = "asc") String sort) {
+        var sortDirection = Sort.by("desc".equalsIgnoreCase(sort) ? Sort.Direction.DESC : Sort.Direction.ASC, "id");
+        var pageable = PageRequest.of(pageNumber, pageSize, sortDirection);
+        return ResponseEntity.ok(service.findPersonsByName(firstName, pageable));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PersonVO> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.findById(id));
