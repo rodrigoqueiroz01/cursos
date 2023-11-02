@@ -9,7 +9,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Page;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public interface IPersonController {
             }
     )
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    ResponseEntity<Page<PersonVO>> findAll(@RequestParam(value = "pageNumber", defaultValue = "0") Integer page,
+    ResponseEntity<PagedModel<EntityModel<PersonVO>>> findAll(@RequestParam(value = "pageNumber", defaultValue = "0") Integer page,
                                            @RequestParam(value = "pageSize", defaultValue = "12") Integer limit,
                                            @RequestParam(value = "sort", defaultValue = "asc") String direction);
 

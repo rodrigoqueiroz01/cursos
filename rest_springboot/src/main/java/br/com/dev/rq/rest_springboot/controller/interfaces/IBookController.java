@@ -8,10 +8,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/book/v1")
@@ -35,7 +35,9 @@ public interface IBookController {
             }
     )
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    ResponseEntity<List<BookVO>> findAll();
+    ResponseEntity<PagedModel<EntityModel<BookVO>>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber,
+                                                            @RequestParam(value = "size", defaultValue = "10") Integer pageSize,
+                                                            @RequestParam(value = "sort", defaultValue = "asc") String sort);
 
     @Operation(summary = "Finds a Book", description = "Finds a Book",
             tags = {"Bookstore"},

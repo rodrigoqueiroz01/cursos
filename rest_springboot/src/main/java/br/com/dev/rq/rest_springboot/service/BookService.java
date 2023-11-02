@@ -7,6 +7,10 @@ import br.com.dev.rq.rest_springboot.exception.EntityNotFoundException;
 import br.com.dev.rq.rest_springboot.exception.RequiredObjectIsNullException;
 import br.com.dev.rq.rest_springboot.repository.BookRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +25,13 @@ public class BookService {
 
     private final BookRepository repository;
 
-    public List<BookVO> findAll() {
-        var books = BookMapper.toBookVOList(repository.findAll());
-        books.forEach(vo -> vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel()));
-        return books;
+    private final PagedResourcesAssembler<BookVO> assembler;
+
+    public PagedModel<EntityModel<BookVO>> findAll(Pageable pageable) {
+        var booksVosPage = repository.findAll(pageable).map(BookMapper::toBookVO);
+        booksVosPage.map(vo -> vo.add(linkTo(methodOn(BookController.class).findById(vo.getId())).withSelfRel()));
+        var link = linkTo(methodOn(BookController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+        return assembler.toModel(booksVosPage, link);
     }
 
     public BookVO findById(Long id) {
