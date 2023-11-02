@@ -39,4 +39,7 @@ public class Person implements Serializable {
     @Column(name = "gender", nullable = false, length = 8)
     private String gender;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
 }
