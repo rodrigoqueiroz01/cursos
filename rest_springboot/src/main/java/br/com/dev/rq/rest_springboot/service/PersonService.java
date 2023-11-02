@@ -9,6 +9,8 @@ import br.com.dev.rq.rest_springboot.exception.RequiredObjectIsNullException;
 import br.com.dev.rq.rest_springboot.repository.PersonRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,16 +25,14 @@ public class PersonService {
 
     private final PersonRepository repository;
 
-    public List<PersonVO> findAll() {
-        var persons = PersonMapper.toPersonVOList(repository.findAll());
-        persons.forEach(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel()));
-        return persons;
+    public Page<PersonVO> findAll(Pageable pageable) {
+        var personVosPage = repository.findAll(pageable).map(PersonMapper::toPersonVO);
+        return personVosPage.map(vo -> vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel()));
     }
 
     public PersonVO findById(Long id) {
         var vo = PersonMapper.toPersonVO(repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada")));
         vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
-
         return vo;
     }
 
@@ -46,16 +46,13 @@ public class PersonService {
         var entity = PersonMapper.toPerson(personVO);
         var vo = PersonMapper.toPersonVO(repository.save(entity));
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getId())).withSelfRel());
-
         return vo;
     }
 
     public PersonVO update(PersonVO personVO, Long id) {
         var entity = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
-
         var vo = PersonMapper.toPersonVO(repository.save(entity));
         vo.add(linkTo(methodOn(PersonController.class).findById(personVO.getId())).withSelfRel());
-
         return vo;
     }
 

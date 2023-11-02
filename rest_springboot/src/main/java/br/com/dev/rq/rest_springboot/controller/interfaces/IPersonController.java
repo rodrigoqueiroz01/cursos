@@ -6,14 +6,12 @@ import br.com.dev.rq.rest_springboot.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/person/v1")
@@ -36,7 +34,9 @@ public interface IPersonController {
             }
     )
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    ResponseEntity<List<PersonVO>> findAll();
+    ResponseEntity<Page<PersonVO>> findAll(@RequestParam(value = "pageNumber", defaultValue = "0") Integer page,
+                                           @RequestParam(value = "pageSize", defaultValue = "12") Integer limit,
+                                           @RequestParam(value = "sort", defaultValue = "asc") String direction);
 
     @Operation(summary = "Finds a Person", description = "Finds a Person", tags = {"People"},
             responses = {
