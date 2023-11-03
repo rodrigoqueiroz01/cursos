@@ -76,6 +76,7 @@ public interface IPersonController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             }
     )
+    @GetMapping("/{id}")
     ResponseEntity<PersonVO> findById(@PathVariable(value = "id") Long id);
 
     @Operation(summary = "Save a Person", description = "Save a Person", tags = {"People"},

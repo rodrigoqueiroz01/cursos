@@ -3,6 +3,7 @@ package br.com.dev.rq.rest_springboot.controller;
 import br.com.dev.rq.rest_springboot.controller.interfaces.IPersonController;
 import br.com.dev.rq.rest_springboot.data.vo.PersonVO;
 import br.com.dev.rq.rest_springboot.service.PersonService;
+import br.com.dev.rq.rest_springboot.util.MediaType;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -37,7 +38,7 @@ public class PersonController implements IPersonController {
         return ResponseEntity.ok(service.findPersonsByName(firstName, pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public ResponseEntity<PersonVO> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
