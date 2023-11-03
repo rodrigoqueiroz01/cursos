@@ -3,13 +3,14 @@ package br.com.dev.rq.rest_springboot.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.properties.SwaggerUiConfigParameters;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenAPIConfig {
 
-    // url: http://localhost:8080/swagger-ui/index.html#/
     @Bean
     OpenAPI customOpenAPI() {
         return new OpenAPI()

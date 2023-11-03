@@ -1,9 +1,6 @@
 server:
   port: 8080
 
-cors:
-  originPatterns: http://localhost:8080,https://dev.rqsolutions.com.br
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/startup
@@ -18,6 +15,13 @@ spring:
     hibernate:
       ddl-auto: none
 
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+
   flyway:
     locations: classpath:db/migration
     enabled: true
@@ -28,3 +32,12 @@ spring-doc:
   paths-to-match: /api/**/v1/**
   swagger-ui:
     use-root-path: true
+    syntax-highlight:
+      theme: dark
+      activated: true
+
+cors:
+  originPatterns: http://localhost:8080,https://dev.rqsolutions.com.br
+
+file:
+  upload-dir: /Users/rodri/dev/cursos/rest_springboot/uploads
