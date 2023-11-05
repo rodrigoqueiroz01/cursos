@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  rest-springboot:
+    image: rodrigoqueiroz01/rest_springboot
+    restart: always
+    build: ./rest_springboot
+    working_dir: /rest_springboot
+    environment:
+      - spring.env
+    ports:
+      - "80:80"
+    command: mvn spring-boot:run
+    depends_on:
+      - C:\Users\rodri\composes\docker_composers_local\postgres
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+    external: true

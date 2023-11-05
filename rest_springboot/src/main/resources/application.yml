@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 
 spring:
   datasource:
@@ -15,18 +15,18 @@ spring:
     hibernate:
       ddl-auto: none
 
+  flyway:
+    locations: classpath:db/migration
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+
   servlet:
     multipart:
       enabled: true
       file-size-threshold: 2KB
       max-file-size: 200MB
       max-request-size: 215MB
-
-  flyway:
-    locations: classpath:db/migration
-    enabled: true
-    baseline-on-migrate: true
-    baseline-version: 0
 
 spring-doc:
   paths-to-match: /api/**/v1/**
