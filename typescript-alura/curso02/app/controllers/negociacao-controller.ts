@@ -13,13 +13,8 @@ export class NegociacaoController {
     private negociacoesView: NegociacoesView = new NegociacoesView('#negociacoesView', true);
     private mensagemView: MensagemView = new MensagemView('#mensagemView');
 
-    private readonly SABADO = 6;
-    private readonly DOMINGO = 0;
-
     constructor() {
-        this.inputData = document.querySelector('#data');
-        this.inputQuantidade = document.querySelector('#quantidade');
-        this.inputValor = document.querySelector('#valor');
+        this.inputElements();
         this.negociacoesView.update(this.negociacoes);
     }
 
@@ -30,7 +25,7 @@ export class NegociacaoController {
             this.inputValor.value
         );
 
-        if (!this.isDiaUtil(negociacao.data)) {
+        if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView.update('Apenas negociações em dias úteis são aceitas.');
             return;
         }
@@ -40,7 +35,13 @@ export class NegociacaoController {
         this.atualizaView();
     }
 
-    private isDiaUtil(date: Date) {
+    private inputElements(): void {
+        this.inputData = document.querySelector('#data') as HTMLInputElement;
+        this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
+        this.inputValor = document.querySelector('#valor') as HTMLInputElement;
+    }
+
+    private ehDiaUtil(date: Date) {
         return date.getDay() > DiasDaSemana.DOMINGO && date.getDay() < DiasDaSemana.SABADO;
     }
 

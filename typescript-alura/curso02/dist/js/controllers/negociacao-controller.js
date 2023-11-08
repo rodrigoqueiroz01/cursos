@@ -8,16 +8,12 @@ export class NegociacaoController {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoesView', true);
         this.mensagemView = new MensagemView('#mensagemView');
-        this.SABADO = 6;
-        this.DOMINGO = 0;
-        this.inputData = document.querySelector('#data');
-        this.inputQuantidade = document.querySelector('#quantidade');
-        this.inputValor = document.querySelector('#valor');
+        this.inputElements();
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
         const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
-        if (!this.isDiaUtil(negociacao.data)) {
+        if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView.update('Apenas negociações em dias úteis são aceitas.');
             return;
         }
@@ -25,7 +21,12 @@ export class NegociacaoController {
         this.limparFormulario();
         this.atualizaView();
     }
-    isDiaUtil(date) {
+    inputElements() {
+        this.inputData = document.querySelector('#data');
+        this.inputQuantidade = document.querySelector('#quantidade');
+        this.inputValor = document.querySelector('#valor');
+    }
+    ehDiaUtil(date) {
         return date.getDay() > DiasDaSemana.DOMINGO && date.getDay() < DiasDaSemana.SABADO;
     }
     limparFormulario() {
