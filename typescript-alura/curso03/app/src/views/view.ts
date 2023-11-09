@@ -1,3 +1,5 @@
+import {logarTempoExecucao} from "../decorators/logar-tempo-execucao.js";
+
 export abstract class View<T> {
 
     protected element: HTMLElement;
@@ -13,6 +15,7 @@ export abstract class View<T> {
         if (escapar) this.escapar = escapar;
     }
 
+    @logarTempoExecucao()
     public update(model: T): void {
         if (this.escapar) this.template(model).replace(/<script>[\s\S]*?<\/script>/, '');
         this.element.innerHTML = this.template(model);

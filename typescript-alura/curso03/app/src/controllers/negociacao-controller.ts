@@ -3,6 +3,7 @@ import {Negociacoes} from "../models/negociacoes.js";
 import {NegociacoesView} from "../views/negociacoes-view.js";
 import {MensagemView} from "../views/mensagem-view.js";
 import {DiasDaSemana} from "../enums/dias-da-semana.js";
+import {logarTempoExecucao} from "../decorators/logar-tempo-execucao.js";
 
 export class NegociacaoController {
 
@@ -18,6 +19,7 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
+    @logarTempoExecucao()
     public adiciona(): void {
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
