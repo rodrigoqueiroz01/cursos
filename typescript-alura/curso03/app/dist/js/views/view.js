@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
+import { inspect } from "../decorators/inspect.js";
 export class View {
     constructor(selector, escapar) {
         this.escapar = false;
@@ -25,5 +26,6 @@ export class View {
     }
 }
 __decorate([
-    logarTempoExecucao()
+    inspect(),
+    logarTempoExecucao(true)
 ], View.prototype, "update", null);
