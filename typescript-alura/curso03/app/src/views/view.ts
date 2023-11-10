@@ -1,6 +1,3 @@
-import {logarTempoExecucao} from "../decorators/logar-tempo-execucao.js";
-import {inspect} from "../decorators/inspect.js";
-
 export abstract class View<T> {
 
     protected element: HTMLElement;
@@ -14,8 +11,6 @@ export abstract class View<T> {
         }
     }
 
-    @inspect()
-    @logarTempoExecucao(true)
     public update(model: T): void {
         this.element.innerHTML = this.template(model);
     }

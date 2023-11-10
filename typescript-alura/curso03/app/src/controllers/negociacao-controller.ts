@@ -5,21 +5,28 @@ import {MensagemView} from "../views/mensagem-view.js";
 import {DiasDaSemana} from "../enums/dias-da-semana.js";
 import {logarTempoExecucao} from "../decorators/logar-tempo-execucao.js";
 import {inspect} from "../decorators/inspect.js";
+import {domInject} from "../decorators/dom-inject.js";
 
 export class NegociacaoController {
 
+    @domInject('#data')
     private inputData: HTMLInputElement;
+
+    @domInject('#quantidade')
     private inputQuantidade: HTMLInputElement;
+
+    @domInject('#valor')
     private inputValor: HTMLInputElement;
+
     private negociacoes: Negociacoes = new Negociacoes();
     private negociacoesView: NegociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView: MensagemView = new MensagemView('#mensagemView');
 
     constructor() {
-        this.inputElements();
         this.negociacoesView.update(this.negociacoes);
     }
 
+    @inspect()
     @logarTempoExecucao()
     public adiciona(): void {
         const negociacao = Negociacao.criaDe(
@@ -36,12 +43,6 @@ export class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.atualizaView();
-    }
-
-    private inputElements(): void {
-        this.inputData = document.querySelector('#data') as HTMLInputElement;
-        this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
-        this.inputValor = document.querySelector('#valor') as HTMLInputElement;
     }
 
     private ehDiaUtil(date: Date) {
