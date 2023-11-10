@@ -10,3 +10,4 @@ if (form) {
 else {
     throw Error('Não foi possível iniciar a aplicação.Verifique se o form existe.');
 }
+//# sourceMappingURL=app.js.map
