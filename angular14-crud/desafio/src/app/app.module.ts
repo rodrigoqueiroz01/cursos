@@ -3,14 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CabecalhoComponent } from './components/cabecalho/cabecalho.component';
-import { RodapeComponent } from './components/rodape/rodape.component';
+import { PrimeiroDesafioComponent } from './components/primeiro-desafio/primeiro-desafio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CabecalhoComponent,
-    RodapeComponent
+    PrimeiroDesafioComponent
   ],
   imports: [
     BrowserModule,
