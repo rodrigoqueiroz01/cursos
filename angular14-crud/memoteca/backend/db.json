@@ -1,34 +1,16 @@
 {
   "pensamentos": [
     {
-      "$id": 1,
+      "id": 1,
       "conteudo": "Na minha máquina funciona!",
       "autoria": "Dev da madrugada",
       "modelo": "modelo1"
     },
     {
-      "$id": 2,
-      "conteudo": "Estudando Angular",
+      "id": 2,
+      "conteudo": "Estudando Angular!!!",
       "autoria": "Angular",
       "modelo": "modelo2"
-    },
-    {
-      "$id": 3,
-      "conteudo": "Viva o Java",
-      "autoria": "Dev Sofredor",
-      "modelo": "modelo3"
-    },
-    {
-      "conteudo": "teste",
-      "autoria": "teste",
-      "modelo": "modelo2",
-      "$id": 4
-    },
-    {
-      "conteudo": "meu amigo gosta de vc!",
-      "autoria": "fofoqueiro",
-      "modelo": "modelo3",
-      "$id": 5
     }
   ]
 }

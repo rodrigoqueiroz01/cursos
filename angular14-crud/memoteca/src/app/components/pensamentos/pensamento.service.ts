@@ -12,20 +12,27 @@ export class PensamentoService {
 
   constructor(private http: HttpClient) {}
 
-  public adicionar(pensamento: Pensamento): Observable<Pensamento> {
+  public save(pensamento: Pensamento): Observable<Pensamento> {
     return this.http.post<Pensamento>(this.API, pensamento);
   }
 
-  public listar(): Observable<Pensamento[]> {
+  public findAll(): Observable<Pensamento[]> {
     return this.http.get<Pensamento[]>(this.API);
   }
 
-  public editar() {
-
+  public findById(id: number): Observable<Pensamento> {
+    const url = `${this.API}/${id}`;
+    return this.http.get<Pensamento>(url);
   }
 
-  public excluir() {
+  public update(pensamento: Pensamento): Observable<Pensamento> {
+    const url = `${this.API}/${pensamento.id}`;
+    return this.http.put<Pensamento>(url, pensamento);
+  }
 
+  public delete(id: number): Observable<Pensamento> {
+    const url = `${this.API}/${id}`;
+    return this.http.delete<Pensamento>(url);
   }
 
 }

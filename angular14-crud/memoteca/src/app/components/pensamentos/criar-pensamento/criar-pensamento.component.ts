@@ -25,7 +25,7 @@ export class CriarPensamentoComponent implements OnInit {
   ngOnInit(): void { }
 
   public criarPensamento(): void {
-    this.service.adicionar(this.pensamento).subscribe(() => this.router.navigate(['/listarPensamento']));
+    this.service.save(this.pensamento).subscribe(() => this.router.navigate(['/listarPensamento']));
     alert('Pensamento criado com sucesso!');
   }
 

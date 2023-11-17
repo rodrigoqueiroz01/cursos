@@ -4,11 +4,11 @@ import {PensamentoService} from "../pensamento.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-excluir-pensamento',
-  templateUrl: './excluir-pensamento.component.html',
-  styleUrls: ['./excluir-pensamento.component.css']
+  selector: 'app-editar-pensamento',
+  templateUrl: './editar-pensamento.component.html',
+  styleUrls: ['./editar-pensamento.component.css']
 })
-export class ExcluirPensamentoComponent implements OnInit {
+export class EditarPensamentoComponent implements OnInit {
 
   pensamento: Pensamento = {
     id: 0,
@@ -28,13 +28,11 @@ export class ExcluirPensamentoComponent implements OnInit {
     this.service.findById(parseInt(id!)).subscribe((pensamento) => this.pensamento = pensamento);
   }
 
-  excluirPensamento() {
-    if (this.pensamento.id) {
-      this.service.delete(this.pensamento.id).subscribe(() => this.router.navigate(['/listarPensamento']));
-    }
+  public editarPensamento(): void {
+    this.service.update(this.pensamento).subscribe(() => this.router.navigate(['/listarPensamento']));
   }
 
-  cancelar() {
+  public cancelar(): void {
     this.router.navigate(['/listarPensamento']);
   }
 
