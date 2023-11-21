@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Pensamento} from "../pensamento";
 import {PensamentoService} from "../pensamento.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {lowercaseValidator} from "../pensamento/lowercaseValidator";
 
 @Component({
   selector: 'app-criar-pensamento',
@@ -27,17 +27,26 @@ export class CriarPensamentoComponent implements OnInit {
       ])],
       autoria: ['', Validators.compose([
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(3),
+        lowercaseValidator
       ])],
       modelo: ['modelo1']
-    })
+    });
   }
 
   public criarPensamento(): void {
-    console.log(this.formulario.status);
+    console.log(this.formulario.get('autoria')?.errors);
     if (this.formulario.valid) {
       this.service.save(this.formulario.value).subscribe(() => this.router.navigate(['/listarPensamento']));
       alert('Pensamento criado com sucesso!');
+    }
+  }
+
+  public habilitarBotao(): string {
+    if (this.formulario.valid) {
+      return 'botao';
+    } else {
+      return 'botao__desabilitado'
     }
   }
 
