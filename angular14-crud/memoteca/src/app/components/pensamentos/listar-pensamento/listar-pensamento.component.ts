@@ -12,6 +12,7 @@ export class ListarPensamentoComponent implements OnInit {
   public listaPensamentos: Pensamento[] = [];
   public paginaAtual: number = 1;
   public haMaisPensamentos: boolean = true;
+  public filtro: string = '';
 
   constructor(private service: PensamentoService) { }
 
