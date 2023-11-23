@@ -23,9 +23,7 @@ export class PensamentoService {
       .set("_page", page)
       .set("_limit", itemsByPage);
 
-    if (filtro.trim().length > 2) {
-      params = params.set('q', filtro);
-    }
+    if (filtro.trim().length > 2) params = params.set('q', filtro);
 
     return this.http.get<Pensamento[]>(this.API, { params });
   }
@@ -43,6 +41,11 @@ export class PensamentoService {
   public delete(id: number): Observable<Pensamento> {
     const url = `${this.API}/${id}`;
     return this.http.delete<Pensamento>(url);
+  }
+
+  public changeFavorite(pensamento: Pensamento): Observable<Pensamento> {
+    pensamento.favorito = !pensamento.favorito;
+    return this.update(pensamento);
   }
 
 }

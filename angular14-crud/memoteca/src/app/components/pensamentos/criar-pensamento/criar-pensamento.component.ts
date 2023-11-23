@@ -30,29 +30,23 @@ export class CriarPensamentoComponent implements OnInit {
         Validators.minLength(3),
         lowercaseValidator
       ])],
-      modelo: ['modelo1']
+      modelo: ['modelo1'],
+      favorito: [false]
     });
   }
 
   public criarPensamento(): void {
-    console.log(this.formulario.get('autoria')?.errors);
     if (this.formulario.valid) {
       this.service.save(this.formulario.value).subscribe(() => this.router.navigate(['/listarPensamento']));
-      alert('Pensamento criado com sucesso!');
     }
   }
 
   public habilitarBotao(): string {
-    if (this.formulario.valid) {
-      return 'botao';
-    } else {
-      return 'botao__desabilitado'
-    }
+    return this.formulario.valid ? 'botao' : 'botao__desabilitado';
   }
 
   public cancelar(): void {
     this.router.navigate(['/listarPensamento']);
-    alert('Operação cancelada!');
   }
 
 }
