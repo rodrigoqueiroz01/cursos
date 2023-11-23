@@ -11,9 +11,9 @@ export class PensamentoComponent implements OnInit {
 
   @Input() pensamento: Pensamento = {
     id: 0,
-    conteudo: 'I love Angular',
-    autoria: 'Nay',
-    modelo: 'modelo3',
+    conteudo: '',
+    autoria: '',
+    modelo: '',
     favorito: false
   }
 
@@ -22,7 +22,7 @@ export class PensamentoComponent implements OnInit {
   ngOnInit(): void { }
 
   public larguraPensamento(): string {
-    return this.pensamento.conteudo.length >= 256 ? 'pensamento-g' : 'pensamento-p';
+    return this.pensamento.conteudo.length >= 250 ? 'pensamento-g' : 'pensamento-p';
   }
 
   public mudarIconeFavorito(): string {
