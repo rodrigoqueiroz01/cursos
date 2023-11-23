@@ -16,12 +16,16 @@ export class PensamentoService {
     return this.http.post<Pensamento>(this.API, pensamento);
   }
 
-  public findAll(page: number): Observable<Pensamento[]> {
+  public findAll(page: number, filtro: string): Observable<Pensamento[]> {
     const itemsByPage = 6;
 
     let params = new HttpParams()
       .set("_page", page)
       .set("_limit", itemsByPage);
+
+    if (filtro.trim().length > 2) {
+      params = params.set('q', filtro);
+    }
 
     return this.http.get<Pensamento[]>(this.API, { params });
   }
