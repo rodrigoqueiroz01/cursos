@@ -9,7 +9,8 @@ import {PensamentoService} from "../pensamento.service";
 })
 export class PensamentoComponent implements OnInit {
 
-  @Input() pensamento: Pensamento = {
+  @Input()
+  public pensamento: Pensamento = {
     id: 0,
     conteudo: '',
     autoria: '',
@@ -17,9 +18,14 @@ export class PensamentoComponent implements OnInit {
     favorito: false
   }
 
-  constructor(private service: PensamentoService) { }
+  @Input()
+  public listaFavoritos: Pensamento[] = [];
 
-  ngOnInit(): void { }
+  constructor(private service: PensamentoService) {
+  }
+
+  ngOnInit(): void {
+  }
 
   public larguraPensamento(): string {
     return this.pensamento.conteudo.length >= 250 ? 'pensamento-g' : 'pensamento-p';
@@ -30,7 +36,9 @@ export class PensamentoComponent implements OnInit {
   }
 
   public atualizarFavoritos() {
-    this.service.changeFavorite(this.pensamento).subscribe();
-  }
+    this.service.changeFavorite(this.pensamento).subscribe(() => {
+        this.listaFavoritos.splice(this.listaFavoritos.indexOf(this.pensamento), 1);
+      });
+  };
 
 }

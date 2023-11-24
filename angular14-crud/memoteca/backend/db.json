@@ -12,14 +12,14 @@
       "conteudo": "Não é a linguagem de programação que define o programador, mas sim sua lógica.",
       "autoria": "David Ribeiro Guilherme",
       "modelo": "modelo2",
-      "favorito": false
+      "favorito": true
     },
     {
       "id": 3,
       "conteudo": "Que a força esteja com você!",
       "autoria": "Mestre Yoda",
       "modelo": "modelo3",
-      "favorito": false
+      "favorito": true
     },
     {
       "id": 4,
@@ -96,7 +96,7 @@
       "conteudo": "Nunca deixe ninguém te dizer que não pode fazer alguma coisa. Se você tem um sonho tem que correr atrás dele. As pessoas não conseguem vencer e dizem que você também não vai vencer. Se você quer uma coisa corre atrás.",
       "autoria": "À Procura da Felicidade",
       "modelo": "modelo1",
-      "favorito": true
+      "favorito": false
     },
     {
       "id": 15,
@@ -118,6 +118,27 @@
       "modelo": "modelo3",
       "favorito": false,
       "id": 17
+    },
+    {
+      "id": 18,
+      "conteudo": "Sextooou papai !!!",
+      "autoria": "@rodrigoqueiroz01",
+      "modelo": "modelo2",
+      "favorito": false
+    },
+    {
+      "id": 19,
+      "conteudo": "Sabadooou papai !!!",
+      "autoria": "@paulohenrex",
+      "modelo": "modelo1",
+      "favorito": false
+    },
+    {
+      "id": 20,
+      "conteudo": "Domingooou papai !!!",
+      "autoria": "@_yurizinn12",
+      "modelo": "modelo3",
+      "favorito": false
     }
   ]
 }

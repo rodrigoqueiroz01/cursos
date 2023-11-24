@@ -16,7 +16,7 @@ export class PensamentoService {
     return this.http.post<Pensamento>(this.API, pensamento);
   }
 
-  public findAll(page: number, filtro: string): Observable<Pensamento[]> {
+  public findAll(page: number, filtro: string, favorites: boolean): Observable<Pensamento[]> {
     const itemsByPage = 6;
 
     let params = new HttpParams()
@@ -24,6 +24,7 @@ export class PensamentoService {
       .set("_limit", itemsByPage);
 
     if (filtro.trim().length > 2) params = params.set('q', filtro);
+    if (favorites) params = params.set("favorito", true);
 
     return this.http.get<Pensamento[]>(this.API, { params });
   }
