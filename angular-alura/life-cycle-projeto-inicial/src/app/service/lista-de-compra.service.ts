@@ -1,5 +1,5 @@
-import { Item } from 'src/app/interfaces/iItem';
-import { Injectable } from '@angular/core';
+import {Item} from 'src/app/interfaces/iItem';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class ListaDeCompraService {
     console.log('Instanciando dependências necessárias para o serviço.');
   }
 
-  getListaDeCompra(){
+  public getListaDeCompra(): Item[] {
     return this.listaDeCompra;
   }
 }
