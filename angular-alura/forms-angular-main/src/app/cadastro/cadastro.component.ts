@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { ConsultaCepService } from "../service/consulta-cep.service";
-import {Observable, Subscription} from "rxjs";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-cadastro',
